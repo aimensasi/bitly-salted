@@ -14,11 +14,11 @@ end
 
 post '/urls/create' do
 	#if url already exist
-	if Url.find_by('long_url = ?', params[:url])
+	if Url.find_by('url = ?', params[:url])
 		redirect to("/urls/index")
 	end
 
-	@url = Url.new(:long_url => params[:url])
+	@url = Url.new(:url => params[:url])
 
 	if @url.save
 		flash[:notice] = "Short Url Was Created Successfully"
@@ -35,6 +35,6 @@ get '/urls/index' do
 end
 
 get '/urls/:link' do 
-		@uri = Url.find_by("short_url = ?", params[:link])
-		redirect @uri.long_url if @uri
+		@url = Url.find_by("short_form = ?", params[:link])
+		redirect @url.url if @url
 end

@@ -1,8 +1,8 @@
 <ul class="list-group">
 	<% @urls.each do |url| %>
 			<li class="lits-group-item">
-				<h2 class="link"><%= url.long_url %></h2>	
-				<h4 class="sub-link"><%= url.short_url %></h4>
+				<h2 class="link"><%= url.url %></h2>	
+				<h4 class="sub-link"><%= url.short_form %></h4>
 			</li>
 	<%end%>
 </ul>
