@@ -36,5 +36,6 @@ end
 
 get '/urls/:link' do 
 		@url = Url.find_by("short_form = ?", params[:link])
+		puts "Request = #{request.scheme}"
 		redirect @url.url if @url
 end

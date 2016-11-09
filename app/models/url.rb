@@ -17,7 +17,7 @@ class Url < ActiveRecord::Base
 	
 	private
 	def is_valid
-		if !self.url.match(REGEX_URL)
+		if self.url.match(REGEX_URL)
 			self.url = "https://#{self.url}"
 		end
 	end
