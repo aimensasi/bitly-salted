@@ -1,4 +1,7 @@
+require 'open-uri'
+require 'nokogiri'
 class Url < ActiveRecord::Base
+
 	# This is Sinatra! Remember to create a migration!
 	REGEX_URL = /^(https|http):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
 	
@@ -17,8 +20,9 @@ class Url < ActiveRecord::Base
 	
 	private
 	def is_valid
-		if self.url.match(REGEX_URL)
-			self.url = "https://#{self.url}"
+		if !self.url.match(REGEX_URL)
 		end
 	end
+
+
 end

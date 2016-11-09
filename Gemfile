@@ -40,3 +40,4 @@ end
 
 gem "eventmachine", "1.0.9"
 
+gem 'nokogiri'

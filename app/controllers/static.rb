@@ -14,9 +14,9 @@ end
 
 post '/urls/create' do
 	#if url already exist
-	if Url.find_by('url = ?', params[:url])
-		redirect to("/urls/index")
-	end
+	# if Url.find_by('url = ?', params[:url])
+	# 	redirect to("/urls/index")
+	# end
 
 	@url = Url.new(:url => params[:url])
 
@@ -36,6 +36,8 @@ end
 
 get '/urls/:link' do 
 		@url = Url.find_by("short_form = ?", params[:link])
-		puts "Request = #{request.scheme}"
+		 
+		@url.update(:counter => @url.counter += 1)
+		# puts "counter #{counter}"
 		redirect @url.url if @url
 end
