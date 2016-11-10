@@ -31,7 +31,7 @@ post '/urls/create' do
   	if @url.save
   	   {status: '200', message: 'Short Url Was Created Successfully', url: @url.url, short_form: @url.short_form, counter: @url.counter}.to_json
   	else
-			 {status: '400', message: @url.errors.full_messages.first, url: @url.url, short_form: @url.short_form, counter: @url.counter}.to_json
+			 {status: '400', message: @url.errors.full_messages.first}.to_json
   	end
   end#if request is in type urlencoded
 end

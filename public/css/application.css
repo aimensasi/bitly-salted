@@ -122,6 +122,7 @@ body{
 	width: 650px;
 	height: 100px;
 	margin-top: 20px;
+	transition: opacity .6s;
 }
 
 .result-panel .link{

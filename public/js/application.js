@@ -19,13 +19,13 @@ if ($('.alert').length) {
 }
 
 //copy to clipboard on click #copy
-$('#sub_copy, #copy').on('click', function(e){
-		e.preventDefault();
-		var short_link = document.getElementById('short_link');
-		short_link.focus();
-		short_link.setSelectionRange(0, short_link.value.length + 1);
+function copyToClipBoard(){
+		var url = document.getElementById('short-url');
+		console.log(url);
+		url.focus();
+		url.setSelectionRange(0, url.value.length + 1);
 
-		if (short_link == "" || short_link == null) { return;}
+		if (url == "" || url == null) { return;}
 
 		try{
 			var copy = document.execCommand('copy');
@@ -33,7 +33,26 @@ $('#sub_copy, #copy').on('click', function(e){
 		}catch (e){
 			console.log("Exception: " + e);
 		}
-});
+}
+
+function populateForm(data){
+	$urlInput = $('#short-url').val(data['short_form']);
+	$submit = $('#submit').val('COPIED');
+	$copyBtn = $('#copy');
+	$shortUrl = $('#url').text(data['url']);
+	$SubshortUrl = $('#sub-short-url').text(data['short_form']); //This Belongs to small panels that appears on success
+	$counter = $('#counter').text(data['counter']);
+
+	$('#result-panel').css('opacity', '1');
+	$copyBtn.on('click', function(){
+		copyToClipBoard();
+		$copyBtn.val('COPIED');
+	});
+}
+
+function displayError(data){
+
+}
 
 
 function sendRequest(url){
@@ -45,15 +64,17 @@ function sendRequest(url){
 					data: url,
 					success: function(data){
 						console.log(data);
-						// switch(data.status){
-						// 	case '208' //Url Already exist
-
-						// 	break;
-						// 	case '200' //url was created and saved successfully
-						// 	break;
-						// 	case '400' //invalid or blank input 
-
-						// }
+						switch(data.status){
+							case '208': //Url Already exist
+								console.log(data);
+								populateForm(data);
+							break;
+							case '200': //url was created and saved successfully
+								populateForm(data);
+							break;
+							case '400': //invalid or blank input 
+								displayError(data);
+						}
 
 					},
 					error: function(err){
@@ -67,11 +88,10 @@ function sendRequest(url){
 $('form').on('submit', function(e){
 	e.preventDefault();
 	var url = $(this).serialize()
-	$url_input = $('#url');
 	$submit = $('#submit');
 
 	if ($submit.val() == "COPY" || $submit.val() == "COPIED") {
-
+		copyToClipBoard();
 	}else if ($submit.val() == "SHORTEN") {
 		sendRequest(url);
 	}
