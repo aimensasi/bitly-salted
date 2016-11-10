@@ -1,0 +1,8 @@
+<% content_for :form do %>
+    <form action="/urls/create" method="POST" class="form">
+        <div class="input-group flex">
+            <input type="text" class="form-control" placeholder="Enter a link to shorthen it" name="url" value="<%= 'localhost:9393/links/' + @url.short_form if @url %>">
+            <input type="submit" class="btn btn-danger" value="SHORTEN">
+        </div>
+    </form>
+<% end %>
