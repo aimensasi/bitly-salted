@@ -1,30 +1,109 @@
+/*Import Font Lato From Google Fonts*/
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+*{
+	font-family: "brandon-grotesque", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 1rem;
+	outline: 0;
+}
+
+body{
+	overflow-x: hidden;
+}
+
 .flex{
 	display: flex;
 	flex-direction: row;
 }
+
 .flex-col{
 	flex-direction: column;
 }
-.center{
-	float: none;
-	margin: 0 auto; 
-}
-.form{
-	width: 900px;
-	margin: 150px auto;
-}
-.input-group{
-	border: 1px solid red;
-}
 
-.btn{
-	border-radius: 0;
+.logo{
+	width: 150px;
+	height: 60px;
+	background: url(/img/logo.jpg) no-repeat;
+	background-size: 90px 45px;
+	margin-right: auto;
 }
 
 .header{
-	margin: 200px 0 0 0;
+	height: 550px;
+	width: 100vw;
+	background: url(/img/desktop.jpg);
 }
 
-ul, li{
-	list-style: none;
+.nav{
+	width: 70%;
+	margin: 30px auto;
 }
+
+.nav-link{
+	font-size: 1.2rem;
+	margin-top: .2rem;
+	color: #fff !important;
+	padding: 0 .4rem .2rem;
+	transition: color .4s, opacity .4s;
+}
+
+.nav-item:hover{
+	color: #ee6123 !important;
+	opacity: 0.6;
+}
+
+.search-box{
+	width: 650px;
+	margin: 110px auto 0;
+}
+
+.input-group{
+	transition: border-color .5s;
+	border: 1px solid transparent;
+}
+.search-box .form-control{
+	height: 59px;
+	
+}
+.search-box .form-control, .search-box .btn{
+	border: none;
+	border-radius: 0;
+}
+.search-box .btn{
+	width: 140px;
+	height: 60px;
+	background: #ee6123;
+}
+
+.links .title{
+	margin: 20px auto 60px;
+	font-family: 'Lato', sans-serif;
+}
+
+.links .table .thead{
+	border: 1px solid #ee6123;
+}
+
+.table .t-row:hover{
+	border: 1px solid #ee6123;
+	border-bottom: none;
+	cursor: pointer;
+}
+.alert {
+	height: 50px;
+	padding: 10px 0;
+}
+
+.alert p{
+	margin: 0 auto;
+}
+.alert p, strong{
+	font-size: 1.1rem;
+}
+
+
+
+
+
+
+

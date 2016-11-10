@@ -1,10 +1,9 @@
-<ul class="list-group">
-	<% @urls.each do |url| %>
-			<li class="lits-group-item">
-				<h2 class="link"><%= url.url %></h2>	
-				<h6 class="sub-link">
-					<a href="<%=url.short_form%>" class="link-to" target="_blank"><%= url.short_form %></a>
-				</h6>
-			</li>
-	<%end%>
-</ul>
+
+<% if @url %>
+	<%= erb :'static/partials/copy_form'%>
+<% else %>
+	<%= erb :'static/partials/new_form'%>
+<% end %>
+
+
+<%= erb :'static/partials/links_table'%>

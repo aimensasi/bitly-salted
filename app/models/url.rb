@@ -5,11 +5,13 @@ class Url < ActiveRecord::Base
 	before_create do 
 		self.short_form = shorten
 	end
+
+	scope :top, -> { order('counter DESC').limit(10) }
 	
 	validates :url, :presence => true, :uniqueness => true, :format => {:with => REGEX_URL, :multiline => true}
 
 	def shorten
 		letters = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map { |i| i.to_a }.flatten
-		string = (0...5).map { letters[rand(letters.length)] }.join
+		string = 'links/' + (0...5).map { letters[rand(letters.length)] }.join
 	end
 end
