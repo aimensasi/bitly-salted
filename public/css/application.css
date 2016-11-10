@@ -6,6 +6,10 @@
 	outline: 0 !important;
 }
 
+.hide{
+	opacity: 0;
+}
+
 body{
 	overflow-x: hidden;
 }

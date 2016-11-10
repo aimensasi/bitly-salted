@@ -36,4 +36,62 @@ $('#sub_copy, #copy').on('click', function(e){
 });
 
 
+function sendRequest(url){
+	$.ajax({
+					url: '/urls/create',
+					type: 'POST',
+					dataType: 'json',
+					cache: false,
+					data: url,
+					success: function(data){
+						console.log(data);
+						// switch(data.status){
+						// 	case '208' //Url Already exist
+
+						// 	break;
+						// 	case '200' //url was created and saved successfully
+						// 	break;
+						// 	case '400' //invalid or blank input 
+
+						// }
+
+					},
+					error: function(err){
+						console.log("ERROR: ");
+						console.log(err);
+					}
+				});
+}
+
+// Performing An Ajax Call
+$('form').on('submit', function(e){
+	e.preventDefault();
+	var url = $(this).serialize()
+	$url_input = $('#url');
+	$submit = $('#submit');
+
+	if ($submit.val() == "COPY" || $submit.val() == "COPIED") {
+
+	}else if ($submit.val() == "SHORTEN") {
+		sendRequest(url);
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -1,5 +1,6 @@
 require 'rack-flash'
 require "sinatra/content_for"
+require 'json'
 
 enable :sessions
 use Rack::Flash
@@ -16,29 +17,25 @@ get '/urls' do
 	erb :"static/index"
 end
 
-get '/urls/:id' do 
-	@url = Url.find(params[:id])
-	erb :'static/index'
-end
-
-
 post '/urls/create' do
 	#if url already exist
-  @url =	Url.find_by('url = ?', params[:url])
-	if @url
-		redirect to("/urls/#{@url.id}")
-	end
 
-	@url = Url.new(:url => params[:url])
+  if request.accept?('application/x-www-form-urlencoded')
+  	@url =	Url.find_by('url = ?', params[:url])
+  	if @url
+      return {status: '208', url: @url.url, short_form: @url.short_form, counter: @url.counter}.to_json
+  	end
 
-	if @url.save
-		flash[:notice] = "Short Url Was Created Successfully"
-		redirect to("/urls/#{@url.id}")
-	else
-		flash[:error] = @url.errors.full_messages.first
-		redirect to("/urls")
-	end
+  	@url = Url.new(:url => params[:url])
+
+  	if @url.save
+  	   {status: '200', message: 'Short Url Was Created Successfully', url: @url.url, short_form: @url.short_form, counter: @url.counter}.to_json
+  	else
+			 {status: '400', message: @url.errors.full_messages.first, url: @url.url, short_form: @url.short_form, counter: @url.counter}.to_json
+  	end
+  end#if request is in type urlencoded
 end
+
 
 get '/links/:link' do 
 		@url = Url.find_by("short_form = ?", params[:link])
