@@ -17,16 +17,10 @@
 
       <div class="container-fluid">
         <div class="row header">
-            <div class="row">
-                <% if flash[:notice] %>
-                    <div class="alert alert-success alert-dismissible fade in flex" role="alert">
-                        <p><strong>Well done!</strong> <%= flash[:notice] %></p>
-                    </div>
-                <% elsif flash[:error] %> 
-                    <div class="alert alert-danger alert-dismissible fade in flex" role="alert">
-                      <p><strong>Oh snap!</strong> <%= flash[:error] %></p>
-                    </div>  
-                <%end%>
+            <div class="row r">
+                <div class="alert alert-danger flex" role="alert" id="notice">
+                  <div class="wrap flex"><strong>Oh snap!</strong><p></p></div> 
+                </div>  
             </div>
           <div class="container"> 
               <nav class="navbar navbar-light row">

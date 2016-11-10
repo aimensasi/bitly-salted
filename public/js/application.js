@@ -13,11 +13,6 @@ $('.t-row').on('dblclick', function(e){
 	// win.focus();
 });
 
-//animate the notification bar when an error or success happen during shrtinning the link
-if ($('.alert').length) {
-	$('.alert').delay(2500).fadeOut(800);	
-}
-
 //copy to clipboard on click #copy
 function copyToClipBoard(){
 		var url = document.getElementById('short-url');
@@ -51,7 +46,17 @@ function populateForm(data){
 }
 
 function displayError(data){
+	$alert = $('#notice');
+	$alert.css('display', 'flex');
+	$alert.delay(100).queue(function(){
+		alert('Done 1');
+		$alert.css('opacity', '1');	
+	});
+	
+	$alert.find('p').text(data['message']);
 
+	$alert.delay(900).css({'opacity': '0', 'display': 'none'});
+	
 }
 
 
@@ -85,6 +90,11 @@ function sendRequest(url){
 }
 
 // Performing An Ajax Call
+$('#short-url').on('input', function(e){
+	e.preventDefault();
+	$('#submit').val('SHORTEN');
+});
+
 $('form').on('submit', function(e){
 	e.preventDefault();
 	var url = $(this).serialize()
@@ -93,6 +103,7 @@ $('form').on('submit', function(e){
 	if ($submit.val() == "COPY" || $submit.val() == "COPIED") {
 		copyToClipBoard();
 	}else if ($submit.val() == "SHORTEN") {
+		$('#result-panel').css('opacity', '0');
 		sendRequest(url);
 	}
 });
