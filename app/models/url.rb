@@ -6,22 +6,16 @@ class Url < ActiveRecord::Base
 	REGEX_URL = /^(https|http):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix
 	
 	before_create do 
-		is_valid
-		self.short_form = shorten
+		self.short_form = Url.shorten
 	end
-	
-	validates :url, :presence => true, :uniqueness => true
 
-	def shorten
+	scope :top, -> { order('counter DESC').limit(10) }
+	
+	validates :url, :presence => true, :uniqueness => true, :format => {:with => REGEX_URL, :multiline => true}
+
+	def self.shorten
 		letters = [('a'..'z'), ('A'..'Z'), ('0'..'9')].map { |i| i.to_a }.flatten
-		string = (0...5).map { letters[rand(letters.length)] }.join
-	end
-
-	
-	private
-	def is_valid
-		if !self.url.match(REGEX_URL)
-		end
+		string = 'localhost:9393/links/' + (0...5).map { letters[rand(letters.length)] }.join
 	end
 
 
