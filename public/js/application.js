@@ -16,7 +16,6 @@ $('.t-row').on('dblclick', function(e){
 //copy to clipboard on click #copy
 function copyToClipBoard(){
 		var url = document.getElementById('short-url');
-		console.log(url);
 		url.focus();
 		url.setSelectionRange(0, url.value.length + 1);
 
@@ -24,14 +23,12 @@ function copyToClipBoard(){
 
 		try{
 			var copy = document.execCommand('copy');
-				$(this).attr('value', 'COPIED');
 		}catch (e){
 			console.log("Exception: " + e);
 		}
 }
 
 function populateForm(data){
-	$copyBtn = $('#copy');
 	$('#submit').val('COPY');
 	$('#short-url').val(data['short_form']);
 	$('#url').text(data['url']);
@@ -40,9 +37,10 @@ function populateForm(data){
 
 	$('#result-panel').css('opacity', '1');
 	
-	$copyBtn.on('click', function(){
+	$('#submit, #copy').on('click', function(e){
 		copyToClipBoard();
-		$copyBtn.val('COPIED');
+		console.log(e.target.value);
+		e.target.value = "COPIED"
 	});
 }
 
@@ -64,10 +62,8 @@ function sendRequest(url){
 					cache: false,
 					data: url,
 					success: function(data){
-						console.log(data);
 						switch(data.status){
 							case '208': //Url Already exist
-								console.log(data);
 								populateForm(data);
 							break;
 							case '200': //url was created and saved successfully
