@@ -2,7 +2,7 @@ require "csv"
 FILE_NAME =  APP_ROOT.join('db/', 'urls')
 class ImportUrls
 	def self.import
-		Url.delete_all
+		# Url.delete_all
 		urls = []
 		i = 0
 		CSV.foreach(FILE_NAME) do |csv_row|
@@ -13,7 +13,6 @@ class ImportUrls
 			
 			urls.push("(#{url_row})")
 		end
-
 
 		Url.transaction do
 			Url.connection.execute "INSERT INTO urls (url, short_form, created_at, updated_at) VALUES #{urls.join(', ')}"

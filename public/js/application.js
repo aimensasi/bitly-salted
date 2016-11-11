@@ -1,6 +1,6 @@
 // Highlight form in case of it being in focus
 $('.form-control').on("focus", function(){
-	$('.form-control').parent().css('border-color', '#ee6123');
+	$('.form-control').parent().css('border-color', '#12504f');
 });
 $('.form-control').on('focusout', function(){
 	$('.form-control').parent().css('border-color', 'transparent');
@@ -31,14 +31,15 @@ function copyToClipBoard(){
 }
 
 function populateForm(data){
-	$urlInput = $('#short-url').val(data['short_form']);
-	$submit = $('#submit').val('COPIED');
 	$copyBtn = $('#copy');
-	$shortUrl = $('#url').text(data['url']);
-	$SubshortUrl = $('#sub-short-url').text(data['short_form']); //This Belongs to small panels that appears on success
-	$counter = $('#counter').text(data['counter']);
+	$('#submit').val('COPY');
+	$('#short-url').val(data['short_form']);
+	$('#url').text(data['url']);
+	$('#short-url-small').text(data['short_form']).attr('href', data['url']); //This Belongs to small panels that appears on success
+	$('#counter').text(data['counter']);
 
 	$('#result-panel').css('opacity', '1');
+	
 	$copyBtn.on('click', function(){
 		copyToClipBoard();
 		$copyBtn.val('COPIED');
@@ -47,6 +48,7 @@ function populateForm(data){
 
 function displayError(data){
 	$alert = $('#notice');
+	$alert.find('p').text(data['message']);
 	$alert.animate({'top': '0px'}, 1000, function(){
 		$alert.delay(2500);
 		$alert.animate({'top': '-50px'}, 1000);
@@ -83,12 +85,12 @@ function sendRequest(url){
 				});
 }
 
-// Performing An Ajax Call
+
 $('#short-url').on('input', function(e){
 	e.preventDefault();
 	$('#submit').val('SHORTEN');
 });
-
+// Performing An Ajax Call
 $('form').on('submit', function(e){
 	e.preventDefault();
 	var url = $(this).serialize()
