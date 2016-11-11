@@ -36,7 +36,8 @@ end
 
 
 get '/links/:link' do 
-		@url = Url.find_by("short_form = ?", params[:link])
+    url = "#{request.env['HTTP_HOST']}/links/#{params[:link]}"
+		@url = Url.find_by("short_form = ?", url)
 
 		@url.update(:counter => @url.counter += 1)
 		redirect @url.url if @url
