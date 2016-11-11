@@ -112,13 +112,10 @@ body{
 
 .alert {
 	width: 100%;
-	height: 50px;
-	/*padding: 10px 0;*/
-	display: none;
-	opacity: 0;
-	transition: height ease .8s, opacity ease .9s;
 	position: absolute;
 	z-index: 999;
+	height: 50px;
+	top: -50px;
 }
 
 .alert .wrap{

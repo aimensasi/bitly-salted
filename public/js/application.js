@@ -47,16 +47,10 @@ function populateForm(data){
 
 function displayError(data){
 	$alert = $('#notice');
-	$alert.css('display', 'flex');
-	$alert.delay(100).queue(function(){
-		alert('Done 1');
-		$alert.css('opacity', '1');	
+	$alert.animate({'top': '0px'}, 1000, function(){
+		$alert.delay(2500);
+		$alert.animate({'top': '-50px'}, 1000);
 	});
-	
-	$alert.find('p').text(data['message']);
-
-	$alert.delay(900).css({'opacity': '0', 'display': 'none'});
-	
 }
 
 
@@ -107,22 +101,3 @@ $('form').on('submit', function(e){
 		sendRequest(url);
 	}
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
