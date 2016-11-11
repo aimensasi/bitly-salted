@@ -6,15 +6,12 @@ class ImportUrls
 		urls = []
 		i = 0
 		CSV.foreach(FILE_NAME) do |csv_row|
-			# puts csv_row
 			url_row = csv_row.first.gsub(/[(]/, "").gsub(/[)]/, "")
 			url_row = "'#{url_row}'"
-			# puts url_row
-			url_row = url_row.insert(csv_row.first.length , ", '#{Url.shorten}', LOCALTIMESTAMP, LOCALTIMESTAMP")
 
-			# puts "(#{url_row})"								 
+			url_row = url_row.insert(csv_row.first.length , ", '#{Url.shorten}', LOCALTIMESTAMP, LOCALTIMESTAMP")				 
+			
 			urls.push("(#{url_row})")
-			# return
 		end
 
 
