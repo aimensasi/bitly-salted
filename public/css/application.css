@@ -34,13 +34,8 @@ body{
 .header{
 	height: 550px;
 	width: 100vw;
-	/*background: url(/img/desktop.jpg);*/
-	background: url(/img/coffee.jpeg) no-repeat;
-	/*background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: center;*/
+	background: url(/img/bg.jpg) no-repeat;
 	background-size: cover;
-	background-position-y: -150px;
 }
 
 .nav{

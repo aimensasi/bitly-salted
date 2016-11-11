@@ -25,7 +25,6 @@ post '/urls/create' do
   	if @url
       return {status: '208', url: @url.url, short_form: @url.short_form, counter: @url.counter}.to_json
   	end
-
   	@url = Url.new(:url => params[:url])
 
   	if @url.save
