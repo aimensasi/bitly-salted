@@ -20,7 +20,7 @@ post '/urls/create' do
 	#if url already exist
   if request.accept?('application/x-www-form-urlencoded')
     
-    domain_name = params[:url]
+    domain_name = params[:url].downcase
     domain_name = domain_name.start_with?('http://') ? domain_name[7..-1] : domain_name
     domain_name = domain_name.start_with?('https://') ? domain_name[8..-1] : domain_name
     domain_name = domain_name.start_with?('www.') ? domain_name[4..-1] : domain_name
