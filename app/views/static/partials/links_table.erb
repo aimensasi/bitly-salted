@@ -2,8 +2,8 @@
   <% @urls.each_with_index do |url, index| %>
       <tr class="t-row">
         <th><%= index + 1 %></th>
-        <td class="link-to"><%= truncate(url.url) %></td>
-        <td><%= url.short_form %></td>
+        <td><%= truncate(url.url) %></td>
+        <td class="link-to"><%= url.short_form %></td>
         <td><%= url.counter %></td>
       </tr>
     <%end%>

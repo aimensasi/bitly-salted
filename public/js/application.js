@@ -96,7 +96,7 @@ function populateTable(data){
 		var row = '<tr class="t-row">';
 				row += '<td>' + (index + 1) + '</td>';
 				row += '<td>' + value['url'] + '</td>';
-				row += '<td>' + value['short_form'] + '</td>';
+				row += '<td class="link-to">' + value['short_form'] + '</td>';
 				row += '<td>' + value['counter'] + '</td>';
 		row += '</tr>';
 		$tableBody.append(row);
