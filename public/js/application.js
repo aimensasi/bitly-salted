@@ -15,7 +15,7 @@ $('.form-control').on('focusout', function(){
 });
 
 //Open Url In New Tab when Clicked On
-$('.t-row').on('dblclick', function(e){
+$('body').on('dblclick', '.t-row', function(e){
 	var url = $(this).find('.link-to').text();
 	var win = window.open(url, '_blank');
 	// win.focus();
@@ -60,6 +60,18 @@ $('#copy').on('click', function(e){
 			copyToClipBoard();
 	});
 
+// truncate 
+function truncate(str, length){
+	max_length = length
+	end_string = '...'
+	var word = str;
+	if (str.length > max_length) {
+		word = str.slice(0, max_length);
+		word += end_string;
+	}
+	return word;
+}
+
 //copy to clipboard on click #copy
 function copyToClipBoard(){
 		var url = $urlInput.get(0);
@@ -95,7 +107,7 @@ function populateTable(data){
 	$.each(data, function(index, value){
 		var row = '<tr class="t-row">';
 				row += '<td>' + (index + 1) + '</td>';
-				row += '<td>' + value['url'] + '</td>';
+				row += '<td>' + truncate(value['url'], 30) + '</td>';
 				row += '<td class="link-to">' + value['short_form'] + '</td>';
 				row += '<td>' + value['counter'] + '</td>';
 		row += '</tr>';

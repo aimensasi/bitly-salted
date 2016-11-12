@@ -8,7 +8,7 @@ helpers do
 				return if str.nil?
 				if str.length > max_length
 					str.slice!(max_length..str.length)
-					str + end_string
+					str += end_string
 				end
 				str
 			end
