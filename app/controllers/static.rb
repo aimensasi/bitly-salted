@@ -37,11 +37,13 @@ post '/urls/create' do
   end#if request is in type urlencoded
 end
 
-
 get '/links/:link' do 
     url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}/links/#{params[:link]}"
 		@url = Url.find_by("short_form = ?", url)
 		@url.update(:counter => @url.counter += 1)
 
-		redirect @url.url if @url
+    uri = URI(@url.url)
+    uri = "HTTP://#{uri}" if uri.scheme.nil?
+
+		redirect uri if @url
 end
