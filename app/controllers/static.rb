@@ -1,10 +1,6 @@
-require 'rack-flash'
 require "sinatra/content_for"
 require 'json'
 require 'net/http'
-
-enable :sessions
-use Rack::Flash
 
 before do 
  @urls = Url.top
@@ -26,11 +22,8 @@ post '/urls/create' do
     #parsing the given url to make sure it's valid
     url = params[:url]
     url = "HTTP://#{params[:url]}" if URI(params[:url]).scheme.nil?
-    puts "URL #{url.inspect}"
     domain_name = URI(url).host.downcase
-    puts "domain_name #{domain_name.inspect}"
     domain_name = domain_name.start_with?('www.') ? domain_name[4..-1] : domain_name
-    puts "domain_name_2 #{domain_name.inspect}"
 
     #if url already exist
   	@url =	Url.find_by('url = ?', domain_name)
