@@ -1,6 +1,7 @@
 require 'rack-flash'
 require "sinatra/content_for"
 require 'json'
+require 'net/http'
 
 enable :sessions
 use Rack::Flash
@@ -40,7 +41,7 @@ end
 get '/links/:link' do 
     url = "#{request.env['rack.url_scheme']}://#{request.env['HTTP_HOST']}/links/#{params[:link]}"
 		@url = Url.find_by("short_form = ?", url)
-
 		@url.update(:counter => @url.counter += 1)
+
 		redirect @url.url if @url
 end
