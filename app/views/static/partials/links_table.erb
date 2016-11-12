@@ -1,7 +1,7 @@
 <% content_for :table do %>
   <% @urls.each_with_index do |url, index| %>
       <tr class="t-row">
-        <th scope="row"><%= index + 1 %></th>
+        <th><%= index + 1 %></th>
         <td class="link-to"><%= truncate(url.url) %></td>
         <td><%= url.short_form %></td>
         <td><%= url.counter %></td>

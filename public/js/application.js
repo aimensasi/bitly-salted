@@ -34,7 +34,7 @@ $('#submit').on('click', function(e){
 			displayError({message: "Url Can't Be Empty"}) 
 		}else{
 			// send an Ajax Post request
-			sendRequest($('form').serialize());	
+			sendPostRequest($('form').serialize());	
 		}
 		
 	}else{
@@ -52,6 +52,13 @@ $urlInput.on('input', function(e){
 	e.preventDefault();
 	$submit.val(SHORTEN);
 });
+
+// triggered When clicking on the small copy button
+$('#copy').on('click', function(e){
+			e.preventDefault();
+			$(this).val(COPIED);
+			copyToClipBoard();
+	});
 
 //copy to clipboard on click #copy
 function copyToClipBoard(){
@@ -77,11 +84,22 @@ function populateForm(data){
 	$('#counter').text(data['counter']);
 
 	$('#result-panel').css('opacity', '1');
-	
-	$('#copy').on('click', function(e){
-			e.preventDefault();
-			$(this).val(COPIED);
-			copyToClipBoard();
+	sendGetRequest();
+}
+
+
+function populateTable(data){
+	// console.log(data);
+	$tableBody = $('#tbody');
+	$tableBody.empty();
+	$.each(data, function(index, value){
+		var row = '<tr class="t-row">';
+				row += '<td>' + (index + 1) + '</td>';
+				row += '<td>' + value['url'] + '</td>';
+				row += '<td>' + value['short_form'] + '</td>';
+				row += '<td>' + value['counter'] + '</td>';
+		row += '</tr>';
+		$tableBody.append(row);
 	});
 }
 
@@ -95,7 +113,7 @@ function displayError(data){
 }
 
 // send A POST Ajax Request
-function sendRequest(url){
+function sendPostRequest(url){
 	$.ajax({
 					url: '/urls/create',
 					type: 'POST',
@@ -122,6 +140,34 @@ function sendRequest(url){
 					}
 				});
 }
+
+
+function sendGetRequest(){
+
+	$.ajax({
+
+		url: '/get_urls',
+		type: 'GET',
+		dataType: 'json',
+		cache: false,
+		success: function(data){
+			populateTable(data);
+		},
+		error: function(data){
+			console.log("ERROR: ");
+			console.log(err);
+		}
+	});
+
+
+}
+
+
+
+
+
+
+
 
 
 

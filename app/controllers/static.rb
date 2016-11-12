@@ -2,16 +2,18 @@ require "sinatra/content_for"
 require 'json'
 require 'net/http'
 
-before do 
- @urls = Url.top
-end
-
 get '/' do
+  @urls = Url.top
   erb :"static/index"
 end
 
 get '/urls' do
+  @urls = Url.top
 	erb :"static/index"
+end
+
+get '/get_urls' do
+  @urls = Url.top.to_json
 end
 
 post '/urls/create' do
