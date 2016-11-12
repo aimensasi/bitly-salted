@@ -1,3 +1,11 @@
+
+const SHORTEN = "SHORTEN";
+const COPY = "COPY";
+const COPIED = "COPIED";
+const $submit = $('#submit');
+const $urlInput = $('#url-input');
+
+
 // Highlight form in case of it being in focus
 $('.form-control').on("focus", function(){
 	$('.form-control').parent().css('border-color', '#12504f');
@@ -13,9 +21,41 @@ $('.t-row').on('dblclick', function(e){
 	// win.focus();
 });
 
+//On Sunmiting the form
+$('#submit').on('click', function(e){
+	e.preventDefault();
+
+	if ($submit.val().trim() === SHORTEN) {
+		// hide result panel
+		$('#result-panel').css('opacity', '0');
+		// check if input has value
+		if ($.trim($urlInput.val()) === null || $.trim($urlInput.val()) === "") {
+			// display error message
+			displayError({message: "Url Can't Be Empty"}) 
+		}else{
+			// send an Ajax Post request
+			sendRequest($('form').serialize());	
+		}
+		
+	}else{
+		if ($submit.val().trim() == COPY) {
+			$submit.val(COPIED);
+		}
+		copyToClipBoard();
+	}
+
+});
+
+
+// triggered when a new input is givien
+$urlInput.on('input', function(e){
+	e.preventDefault();
+	$submit.val(SHORTEN);
+});
+
 //copy to clipboard on click #copy
 function copyToClipBoard(){
-		var url = document.getElementById('short-url');
+		var url = $urlInput.get(0);
 		url.focus();
 		url.setSelectionRange(0, url.value.length + 1);
 
@@ -28,19 +68,20 @@ function copyToClipBoard(){
 		}
 }
 
+// Use the given data to populate the form
 function populateForm(data){
-	$('#submit').val('COPY');
-	$('#short-url').val(data['short_form']);
-	$('#url').text(data['url']);
-	$('#short-url-small').text(data['short_form']).attr('href', data['url']); //This Belongs to small panels that appears on success
+	$submit.val(COPY);
+	$urlInput.val(data['short_form']);
+	$('#url-text').text(data['url']);
+	$('#short-url-text').text(data['short_form']).attr('href', data['short_form']); //This Belongs to small panels that appears on success
 	$('#counter').text(data['counter']);
 
 	$('#result-panel').css('opacity', '1');
 	
-	$('#submit, #copy').on('click', function(e){
-		copyToClipBoard();
-		console.log(e.target.value);
-		e.target.value = "COPIED"
+	$('#copy').on('click', function(e){
+			e.preventDefault();
+			$(this).val(COPIED);
+			copyToClipBoard();
 	});
 }
 
@@ -53,7 +94,7 @@ function displayError(data){
 	});
 }
 
-
+// send A POST Ajax Request
 function sendRequest(url){
 	$.ajax({
 					url: '/urls/create',
@@ -64,6 +105,7 @@ function sendRequest(url){
 					success: function(data){
 						switch(data.status){
 							case '208': //Url Already exist
+								console.log(data);
 								populateForm(data);
 							break;
 							case '200': //url was created and saved successfully
@@ -82,20 +124,15 @@ function sendRequest(url){
 }
 
 
-$('#short-url').on('input', function(e){
-	e.preventDefault();
-	$('#submit').val('SHORTEN');
-});
-// Performing An Ajax Call
-$('form').on('submit', function(e){
-	e.preventDefault();
-	var url = $(this).serialize()
-	$submit = $('#submit');
 
-	if ($submit.val() == "COPY" || $submit.val() == "COPIED") {
-		copyToClipBoard();
-	}else if ($submit.val() == "SHORTEN") {
-		$('#result-panel').css('opacity', '0');
-		sendRequest(url);
-	}
-});
+
+
+
+
+
+
+
+
+
+
+
