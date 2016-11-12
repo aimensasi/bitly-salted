@@ -17,16 +17,8 @@ class Url < ActiveRecord::Base
 	end
 
 	def is_valid?
-		if url =~ DOMAIN_EXTENTION
-
-			uri = URI.parse(url)
-			uri = URI("HTTP://#{uri}") if uri.scheme.nil?
-			
-			if !Net::HTTP.get_response(uri).is_a?(Net::HTTPSuccess)
-				errors.add(:url, 'Is Not Responding, Make sure it\'s correct and try again')
-			end
-		else
-			#if url does not has a domain extenstion
+		#if url does not has a domain extenstion
+		if url !~ DOMAIN_EXTENTION
 			errors.add(:url, 'Is Invaild')	
 		end
 	end
