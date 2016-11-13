@@ -36,9 +36,9 @@ body{
 }
 
 .header{
-	height: 550px;
+	height: 600px;
 	width: 100vw;
-	background: url(/img/bg.jpg) no-repeat;
+	background: url(/img/desktop.jpg) no-repeat;
 	background-size: cover;
 }
 
@@ -90,12 +90,12 @@ body{
 }
 .search-box .btn{
 	width: 140px;
-	height: 60px;
-	background: #12504f;
+	height: 59px;
+	background: #ee6123;
 }
 
 .search-box .btn:active{
-	background: #12504f;
+	background: #ee6123;
 }
 
 .links .title{
